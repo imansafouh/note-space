@@ -48,7 +48,7 @@ export function FolderSelector({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between"
+          className="w-full justify-between truncate"
         >
           <div className="flex items-center">
             <Folder className="mr-2 h-4 w-4" />

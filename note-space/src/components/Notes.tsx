@@ -73,43 +73,44 @@ export function Notes() {
 
   return (
     <div className="flex max-w-8xl mx-auto my-4 px-4">
-      <FolderSidebar
-        selectedFolderId={selectedFolderId}
-        onSelectFolder={setSelectedFolderId}
-      />
-
-      <div className="flex-1 ml-6">
+      <div className="flex-1 ml-6 w-full">
         <h1 className="text-primary text-4xl sm:text-5xl text-center font-extrabold tracking-wide mb-4 leading-tight">
           My Notes
         </h1>
-        <p className="text-muted-foreground text-lg text-center mb-6">
+        <p className="text-muted-foreground text-lg text-center mb-8">
           Here are some of my recent reflections and thoughts.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
-          <CreateNote selectedFolderId={selectedFolderId} />
-          {filteredNotes?.map((note, index) => (
-            <MyCard
-              key={note._id || index}
-              createdAt={new Date(note.createdAt)}
-              content={note.content}
-              folderId={note.folderId}
-              className="w-full"
-              onDelete={() => handleDelete(note._id)}
-              onUpdate={(newContent, newFolderId) =>
-                handleUpdate(note._id, newContent, newFolderId)
-              }
-            />
-          ))}
-          {filteredNotes?.length === 0 && (
-            <div className="col-span-full text-center py-12">
-              <p className="text-muted-foreground text-lg">
-                {selectedFolderId
-                  ? "No notes in this folder yet."
-                  : "No notes yet."}
-              </p>
-            </div>
-          )}
+        <div className="flex flex-row gap-6">
+          <FolderSidebar
+            selectedFolderId={selectedFolderId}
+            onSelectFolder={setSelectedFolderId}
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full items-start">
+            <CreateNote selectedFolderId={selectedFolderId} />
+            {filteredNotes?.map((note, index) => (
+              <MyCard
+                key={note._id || index}
+                createdAt={new Date(note.createdAt)}
+                content={note.content}
+                folderId={note.folderId}
+                className="w-full"
+                onDelete={() => handleDelete(note._id)}
+                onUpdate={(newContent, newFolderId) =>
+                  handleUpdate(note._id, newContent, newFolderId)
+                }
+              />
+            ))}
+            {filteredNotes?.length === 0 && (
+              <div className="col-span-full text-center py-12">
+                <p className="text-muted-foreground text-lg">
+                  {selectedFolderId
+                    ? "No notes in this folder yet."
+                    : "No notes yet."}
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

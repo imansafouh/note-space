@@ -12,6 +12,8 @@ import { DialogFooter, DialogHeader } from "./dialog";
 import { Button } from "./button";
 import { useState } from "react";
 import { FolderSelector } from "../folderSelector";
+import { Label } from "./label";
+import { ScrollArea } from "./scroll-area";
 
 interface MyCardProps extends React.ComponentProps<"div"> {
   createdAt: Date;
@@ -44,7 +46,7 @@ export function MyCard({
   };
   return (
     <Card
-      className={`bg-yellow-100 rounded-lg text-yellow-900 p-6 w-72 min-h-[200px] flex flex-col gap-4 hover:scale-105 transition-transform ${className}`}
+      className={`bg-yellow-100 rounded-lg text-yellow-900 p-6 w-72 h-[200px] flex flex-col gap-4 hover:scale-105 transition-transform ${className}`}
     >
       <div className="flex flex-row justify-start items-center mx-2 gap-2">
         {/* <CardAction>
@@ -69,8 +71,10 @@ export function MyCard({
               value={editContent}
               onChange={(e) => setEditContent(e.target.value)}
             />
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Folder</label>
+            <div className="space-y-2 truncate">
+              <Label htmlFor="folder" className="text-sm font-medium">
+                Folder
+              </Label>
               <FolderSelector
                 selectedFolderId={selectedFolderId!}
                 onSelectFolder={setSelectedFolderId}
@@ -123,8 +127,10 @@ export function MyCard({
         </Dialog>
       </div>
 
-      <CardContent className="overflow-hidden text-ellipsis">
-        <p>{content}</p>
+      <CardContent className="flex-1 overflow-hidden">
+        <ScrollArea className="h-full w-full">
+          <div className="whitespace-pre-wrap min-w-full">{content}</div>
+        </ScrollArea>
       </CardContent>
       <CardFooter>
         <time>
